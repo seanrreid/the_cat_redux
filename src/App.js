@@ -1,10 +1,10 @@
 import React from "react";
-import Activity from "./components/Activity";
+import CatList from "./components/CatList";
 
 function App() {
   return (
     <div className="App">
-      <Activity />
+      <CatList />
     </div>
   );
 }

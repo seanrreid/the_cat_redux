@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { eat, play, nap, setName } from "../redux/actions";
+import { setName, setActivity, addCat } from "../redux/actions";
 
 const Activity = ({ name, activity, eat, play, nap, setName }) => {
   const [newName, setNewName] = useState("");
@@ -32,13 +32,13 @@ const Activity = ({ name, activity, eat, play, nap, setName }) => {
         </button>
       </form>
       <br />
-      <button type="button" onClick={() => eat()}>
+      <button type="button" onClick={() => setActivity("eating")}>
         Eating
       </button>
-      <button type="button" onClick={() => play()}>
+      <button type="button" onClick={() => setActivity("playing")}>
         Playing
       </button>
-      <button type="button" onClick={() => nap()}>
+      <button type="button" onClick={() => setActivity("napping")}>
         Napping
       </button>
     </>
@@ -50,4 +50,4 @@ const mapStateToProps = (state) => {
   return { name, activity };
 };
 
-export default connect(mapStateToProps, { eat, play, nap, setName })(Activity);
+export default connect(mapStateToProps, { setName, setActivity })(Activity);
