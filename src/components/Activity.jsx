@@ -1,26 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { eat, play, nap } from "../redux/actions";
+import { eat, play, nap, setName } from "../redux/actions";
 
-const Activity = ({ activity, eat, play, nap }) => (
-  <>
-    <h1>What is the cat doing now???</h1>
-    <p>The cat is {activity}.</p>
-    <button type="button" onClick={() => eat()}>
-      Eating
-    </button>
-    <button type="button" onClick={() => play()}>
-      Playing
-    </button>
-    <button type="button" onClick={() => nap()}>
-      Napping
-    </button>
-  </>
-);
+const Activity = ({ name, activity, eat, play, nap, setName }) => {
+  const [newName, setNewName] = useState("");
 
-const mapStateToProps = (state) => {
-  const { activity } = state;
-  return activity;
+  const _handleChange = (name) => {
+    setNewName(name);
+  };
+  const _handleClick = () => {
+    setName(newName);
+  };
+
+  return (
+    <>
+      <h1>What is the cat doing now???</h1>
+      <p>
+        {name} is {activity}.
+      </p>
+      <form>
+        <label>
+          Cat's Name
+          <input
+            type="text"
+            onChange={(e) => _handleChange(e.target.value)}
+            value={newName}
+          />
+        </label>
+        <button type="button" onClick={() => _handleClick()}>
+          Submit
+        </button>
+      </form>
+      <br />
+      <button type="button" onClick={() => eat()}>
+        Eating
+      </button>
+      <button type="button" onClick={() => play()}>
+        Playing
+      </button>
+      <button type="button" onClick={() => nap()}>
+        Napping
+      </button>
+    </>
+  );
 };
 
-export default connect(mapStateToProps, { eat, play, nap })(Activity);
+const mapStateToProps = (state) => {
+  const { name, activity } = state;
+  return { name, activity };
+};
+
+export default connect(mapStateToProps, { eat, play, nap, setName })(Activity);
